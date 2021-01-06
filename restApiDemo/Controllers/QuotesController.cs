@@ -40,7 +40,13 @@ namespace restApiDemo.Controllers
             }
             return Ok(quotes);
         }
-
+        [HttpGet("[action]")]
+        // GET: QuotesController
+        public IActionResult PagingQuote(int pageNumber=1, int pageSize=1)
+        {
+           return Ok(_quotesDbContext.Quotes.Skip((pageNumber-1)*pageSize).Take(pageSize));
+           
+        }
         // GET: QuotesController/Details/5
         [HttpGet("{id}", Name = "Get")]
         public Quote Get(int id)
